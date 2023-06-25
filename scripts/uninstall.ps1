@@ -1,0 +1,1 @@
+Unregister-ScheduledTask -TaskName "Third-Party Flicker-Free Dimming HotKeys For MyASUS"

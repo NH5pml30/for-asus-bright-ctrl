@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# RPC Client dll
+AsusCustomizationRpcClient.dll
+
+# log file
+log.txt
