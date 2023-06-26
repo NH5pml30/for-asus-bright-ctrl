@@ -16,13 +16,13 @@ This is a simple app that I created to control MyASUS' "Flicker-Free Dimming" br
   - copy `install.ps1` contents into the PowerShell prompt and run.
 
   This will add a task `Third-Party Flicker-Free Dimming HotKeys For MyASUS` through the Windows Task Scheduler to run this program on every current user's log-in. Also note that you shouldn't move this directory or change its contents, otherwise the task will fail and nothing will work.
-- Double-click `install.reg`. This will disable security checks that the driver RPC server does, so that this process can control the driver.
+- Double-click `install.reg`. Warning: this will disable security checks that the `AsusOptimization.exe` RPC server does, so that this process can communicate with it.
 
 ## Uninstall
 To uninstall, do the same things as in installation, but replace `install.ps1` and `install.reg` with `uninstall.ps1` and `uninstall.reg`. This will undo those changes.
 
 ## How Does it Work
-The app tries to find the MyASUS package, locate its RPC client (the part that communicates to the driver) `.dll` file, copy it over to the working directory, and then load it and call necessary functions to control the brightness.
+The app tries to find the MyASUS package, locate its RPC client (the part that communicates to `AsusOptimization.exe`, which controls the driver) `.dll` file, copy it over to the working directory, and then load it and call necessary functions to control the brightness through `AsusOptimization.exe`.
 
 ## Usage
 Controls are:
