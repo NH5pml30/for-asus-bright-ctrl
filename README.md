@@ -34,7 +34,8 @@ Also note that when using HDR these changes are not applied immediately, but it 
 
 ## Screenshots
 A little window with the current brightness indicator should appear in the upper-left corner of the screen, when any of the hot keys are pressed:
-![image](https://github.com/NH5pml30/for-asus-bright-ctrl/assets/39946761/7490dcf4-803b-4587-8775-53df5f5a229f)
+
+![image](https://github.com/NH5pml30/for-asus-bright-ctrl/assets/39946761/70fc0cd9-c5c8-4dcb-bac8-01fcca26bbd6)
 
 ## Troubleshooting
 You can either manually restart the app, or rerun the task from the Task Scheduler. In the same directory as the extracted `for-asus-bright-ctrl.exe` file there should be created a `log.txt` file with some logs.
