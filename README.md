@@ -18,6 +18,8 @@ This is a simple app that I created to control MyASUS' "Flicker-Free Dimming" br
   This will add a task `Third-Party Flicker-Free Dimming HotKeys For MyASUS` through the Windows Task Scheduler to run this program on every current user's log-in. Also note that you shouldn't move this directory or change its contents, otherwise the task will fail and nothing will work.
 - Double-click `install.reg`. Warning: this will disable security checks that the `AsusOptimization.exe` RPC server does, so that this process can communicate with it.
 
+Note: apparently, after updating the MyASUS app the registry key is reset, so TODO: it might be a good idea to set the registry key before running this app on every user log-in.
+
 ## Uninstall
 To uninstall, do the same things as in installation, but replace `install.ps1` and `install.reg` with `uninstall.ps1` and `uninstall.reg`. This will undo those changes.
 
