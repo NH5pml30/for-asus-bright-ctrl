@@ -7,18 +7,9 @@ This is a simple app that I created to control MyASUS' "Flicker-Free Dimming" br
   - `for-asus-bright-ctrl.exe` - the app;
   - `mfc140u.dll` - MFC dll;
   - `install.ps1`, `install.reg`, `uninstall.ps1`, `uninstall.reg` - (un)installation scripts.
-- Either:
-  - run `./install.ps1` in PowerShell from the extracted directory (important). Note that script execution should be enabled, see more [here, for example](https://superuser.com/questions/106360/how-to-enable-execution-of-powershell-scripts).
+- run `./install.ps1` in PowerShell from the extracted directory (important). Note that script execution should be enabled, see more [here, for example](https://superuser.com/questions/106360/how-to-enable-execution-of-powershell-scripts). It will display a UAC prompt half-way through, click "Yes" or similar. It is needed to modify the Windows registry.
 
-  or
-  - open PowerShell;
-  - navigate to the extracted directory;
-  - copy `install.ps1` contents into the PowerShell prompt and run.
-
-  This will add a task `Third-Party Flicker-Free Dimming HotKeys For MyASUS` through the Windows Task Scheduler to run this program on every current user's log-in. Also note that you shouldn't move this directory or change its contents, otherwise the task will fail and nothing will work.
-- Double-click `install.reg`. Warning: this will disable security checks that the `AsusOptimization.exe` RPC server does, so that this process can communicate with it.
-
-Note: apparently, after updating the MyASUS app the registry key is reset, so TODO: it might be a good idea to set the registry key before running this app on every user log-in.
+  This will add and start a task `for-asus-bright-ctrl` through the Windows Task Scheduler to run this program on every current user's log-in. Additionally, a task `for-asus-bright-ctrl regedit` to apply `install.reg` will be added with the same trigger and started as well. Warning: this will disable security checks that the `AsusOptimization.exe` RPC server does by setting a value in the Windows registry, so that this process can communicate with it. Also note that you shouldn't move this directory or change its contents, otherwise the task will fail and nothing will work.
 
 ## Uninstall
 To uninstall, do the same things as in installation, but replace `install.ps1` and `install.reg` with `uninstall.ps1` and `uninstall.reg`. This will undo those changes.
