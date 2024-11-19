@@ -12,7 +12,8 @@ class OptMan {
 
   int64_t (*MyOptRpcClientInitialize)(void **rpcClientPtr){};
   int64_t (*MyOptRpcClientClose)(void *rpcClient){};
-  int64_t (*MyOptSetSplendidDimmingFunc)(int nValue, void *rpcClient){};
+  int64_t (*MyOptSetSplendidDimmingFunc)(int nValue, LPCSTR OptionString,
+                                         void *rpcClient){};
   int64_t (*MyOptGetSplendidColorModeFunc)(void *rpcClient){};
 
   void (*SetCallbackForReturnOptimizationResult)(CallbackForOptimizationTy fn,

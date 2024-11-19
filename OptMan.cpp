@@ -77,8 +77,9 @@ void OptMan::SetSplendidDimming(int nMode) {
   if (!CheckValid())
     return;
   LOGI_V_LN("MyOptSetSplendidDimmingFunc(", nMode, ")");
-  updateRpcConnectStatus(MyOptSetSplendidDimmingFunc(nMode, rpcClient.get()),
-                         "MyOptSetSplendidDimmingFunc");
+  updateRpcConnectStatus(
+      MyOptSetSplendidDimmingFunc(nMode, "", rpcClient.get()),
+      "MyOptSetSplendidDimmingFunc");
   if (isRpcConnectOk)
     nSplendidDcScale = nMode;
 }

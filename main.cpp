@@ -23,6 +23,17 @@
 
 #define WM_USER_BRIGHTNESS_CHANGED (WM_USER + 1)
 
+namespace {
+
+constexpr PACKAGE_VERSION get_min_supported_version() {
+  PACKAGE_VERSION res{};
+  res.Major = 4;
+  res.Minor = 0;
+  res.Build = 23;
+  res.Revision = 0;
+  return res;
+}
+
 class CRpcThread : public CWinThread {
 public:
   CRpcThread(CWinThread *Parent) : Parent(Parent) {}
@@ -116,16 +127,49 @@ protected:
                                        PackageFullName.GetBuffer());
     }
     if (Res != 0) {
-      LOGE_V_LN("getPackagesByPackageFamily failed: ", Res);
+      LOGE_V_LN("GetPackagesByPackageFamily failed: ", Res);
       return FALSE;
     }
 
     LOGI_V_LN("obtained package full name: ", CW2A(PackageFullName));
 
+    PACKAGE_ID id{};
+    BufLen = 0;
+    Res =
+        PackageIdFromFullName(PackageFullName.GetString(),
+                              PACKAGE_INFORMATION_BASIC, &BufLen, NULL);
+    if (Res != ERROR_INSUFFICIENT_BUFFER) {
+      LOGE_V_LN("PackageIdFromFullName failed: ", Res);
+      return FALSE;
+    }
+    {
+      std::vector<BYTE> mem(BufLen);
+      Res = PackageIdFromFullName(PackageFullName.GetString(),
+                                  PACKAGE_INFORMATION_BASIC, &BufLen, mem.data());
+      if (Res != 0) {
+        LOGE_V_LN("PackageIdFromFullName failed: ", Res);
+        return FALSE;
+      }
+      id = *(PACKAGE_ID *)mem.data();
+    }
+
+    if (auto min_version = get_min_supported_version();
+        std::make_tuple(id.version.Major, id.version.Minor, id.version.Build,
+                        id.version.Revision) <
+        std::make_tuple(min_version.Major, min_version.Minor, min_version.Build,
+                        min_version.Revision)) {
+      LOGE_V_LN("MyAsus version ", id.version.Major, ".", id.version.Minor, ".",
+                id.version.Build, ".", id.version.Revision,
+                " is not supported, please update to at least ",
+                min_version.Major, ".", min_version.Minor, ".",
+                min_version.Build, ".", min_version.Revision);
+      return FALSE;
+    }
+
     BufLen = 0;
     Res = GetPackagePathByFullName(PackageFullName.GetString(), &BufLen, NULL);
     if (Res != ERROR_INSUFFICIENT_BUFFER) {
-      LOGE_V_LN("getPackagePathByFullName failed: ", Res);
+      LOGE_V_LN("GetPackagePathByFullName failed: ", Res);
       return FALSE;
     }
     if (BufLen == 0) {
@@ -200,3 +244,5 @@ protected:
 };
 
 CRpcApp app;
+
+} // namespace
